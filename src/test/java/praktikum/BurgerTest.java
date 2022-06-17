@@ -1,16 +1,23 @@
 package praktikum;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BurgerTest {
+
+    @Mock
+    Bun bun;
 
     @Test
     public void setBuns() {
-        Bun bun = new Bun("White", 100);
         Burger burger = new Burger();
 
         burger.setBuns(bun);
@@ -48,7 +55,6 @@ public class BurgerTest {
     @Test(expected = IllegalArgumentException.class)
     public void moveAbsentIngredient() {
         Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
-        Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
         burger.addIngredient(filling);
 
@@ -58,7 +64,6 @@ public class BurgerTest {
     @Test(expected = IllegalArgumentException.class)
     public void moveIngredientToWrongPosition() {
         Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
-        Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
         burger.addIngredient(filling);
 
@@ -82,7 +87,6 @@ public class BurgerTest {
     @Test(expected = IllegalArgumentException.class)
     public void removeAbsentIngredient() {
         Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
-        Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
         burger.addIngredient(filling);
 
@@ -110,7 +114,8 @@ public class BurgerTest {
 
     @Test
     public void getReceipt() {
-        Bun bun = new Bun("White", 100);
+        Mockito.when(bun.getName()).thenReturn("White");
+        Mockito.when(bun.getPrice()).thenReturn(100f);
         Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
 
