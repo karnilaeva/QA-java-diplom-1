@@ -20,7 +20,7 @@ public class BurgerTest {
 
     @Test
     public void addIngredients() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cotlet", 300);
+        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
 
@@ -32,7 +32,7 @@ public class BurgerTest {
 
     @Test
     public void moveIngredient() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cotlet", 300);
+        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
         burger.addIngredient(filling);
@@ -47,7 +47,7 @@ public class BurgerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void moveAbsentIngredient() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cotlet", 300);
+        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
         burger.addIngredient(filling);
@@ -57,7 +57,7 @@ public class BurgerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void moveIngredientToWrongPosition() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cotlet", 300);
+        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
         burger.addIngredient(filling);
@@ -67,7 +67,7 @@ public class BurgerTest {
 
     @Test
     public void removeIngredient() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cotlet", 300);
+        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
         burger.addIngredient(filling);
@@ -81,7 +81,7 @@ public class BurgerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void removeAbsentIngredient() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cotlet", 300);
+        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
         burger.addIngredient(filling);
@@ -90,18 +90,8 @@ public class BurgerTest {
     }
 
     @Test
-    public void getPriceForBuns() {
-        Bun bun = new Bun("White", 100);
-
-        Burger burger = new Burger();
-        burger.setBuns(bun);
-
-        assertEquals(200, burger.getPrice(), 0);
-    }
-
-    @Test
     public void getPriceForIngredients() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cotlet", 300);
+        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
 
         Burger burger = new Burger();
@@ -109,21 +99,6 @@ public class BurgerTest {
         burger.addIngredient(sauce);
 
         assertEquals(500, burger.getPrice(), 0);
-    }
-
-    @Test
-    public void getFullPrice() {
-        Bun bun = new Bun("White", 100);
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cotlet", 300);
-        Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
-
-
-        Burger burger = new Burger();
-        burger.setBuns(bun);
-        burger.addIngredient(filling);
-        burger.addIngredient(sauce);
-
-        assertEquals(700, burger.getPrice(), 0);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -136,7 +111,7 @@ public class BurgerTest {
     @Test
     public void getReceipt() {
         Bun bun = new Bun("White", 100);
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cotlet", 300);
+        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
 
         Burger burger = new Burger();
@@ -146,7 +121,7 @@ public class BurgerTest {
 
         String expected =
                 "(==== White ====)\n" +
-                "= filling Beef cotlet =\n" +
+                "= filling Beef cutlet =\n" +
                 "= sauce Ketchup =\n" +
                 "(==== White ====)\n" +
                 "\n" +
