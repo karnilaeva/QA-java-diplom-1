@@ -16,6 +16,12 @@ public class BurgerTest {
     @Mock
     Bun bun;
 
+    @Mock
+    Ingredient ingredient1;
+
+    @Mock
+    Ingredient ingredient2;
+
     @Test
     public void setBuns() {
         Burger burger = new Burger();
@@ -27,80 +33,68 @@ public class BurgerTest {
 
     @Test
     public void addIngredients() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
-        Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
 
-        burger.addIngredient(filling);
-        burger.addIngredient(sauce);
+        burger.addIngredient(ingredient1);
+        burger.addIngredient(ingredient2);
 
-        assertEquals(List.of(filling, sauce), burger.ingredients);
+        assertEquals(List.of(ingredient1, ingredient2), burger.ingredients);
     }
 
     @Test
     public void moveIngredient() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
-        Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
-        burger.addIngredient(filling);
-        burger.addIngredient(filling);
-        burger.addIngredient(filling);
-        burger.addIngredient(sauce);
+        burger.addIngredient(ingredient1);
+        burger.addIngredient(ingredient2);
 
-        burger.moveIngredient(3, 1);
+        burger.moveIngredient(1, 0);
 
-        assertEquals(List.of(filling, sauce, filling, filling), burger.ingredients);
+        assertEquals(List.of(ingredient2, ingredient1), burger.ingredients);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void moveAbsentIngredient() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Burger burger = new Burger();
-        burger.addIngredient(filling);
+        burger.addIngredient(ingredient1);
 
         burger.moveIngredient(1, 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void moveIngredientToWrongPosition() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Burger burger = new Burger();
-        burger.addIngredient(filling);
+        burger.addIngredient(ingredient1);
 
         burger.moveIngredient(0, 1);
     }
 
     @Test
     public void removeIngredient() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
-        Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
         Burger burger = new Burger();
-        burger.addIngredient(filling);
-        burger.addIngredient(filling);
-        burger.addIngredient(sauce);
+        burger.addIngredient(ingredient1);
+        burger.addIngredient(ingredient2);
 
         burger.removeIngredient(1);
 
-        assertEquals(List.of(filling, sauce), burger.ingredients);
+        assertEquals(List.of(ingredient1), burger.ingredients);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void removeAbsentIngredient() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
         Burger burger = new Burger();
-        burger.addIngredient(filling);
+        burger.addIngredient(ingredient1);
 
         burger.removeIngredient(1);
     }
 
     @Test
     public void getPriceForIngredients() {
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
-        Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
+        Mockito.when(ingredient1.getPrice()).thenReturn(200f);
+        Mockito.when(ingredient2.getPrice()).thenReturn(300f);
 
         Burger burger = new Burger();
-        burger.addIngredient(filling);
-        burger.addIngredient(sauce);
+        burger.addIngredient(ingredient1);
+        burger.addIngredient(ingredient2);
 
         assertEquals(500, burger.getPrice(), 0);
     }
@@ -116,13 +110,19 @@ public class BurgerTest {
     public void getReceipt() {
         Mockito.when(bun.getName()).thenReturn("White");
         Mockito.when(bun.getPrice()).thenReturn(100f);
-        Ingredient filling = new Ingredient(IngredientType.FILLING, "Beef cutlet", 300);
-        Ingredient sauce = new Ingredient(IngredientType.SAUCE, "Ketchup", 200);
+
+        Mockito.when(ingredient1.getName()).thenReturn("Beef cutlet");
+        Mockito.when(ingredient1.getType()).thenReturn(IngredientType.FILLING);
+        Mockito.when(ingredient1.getPrice()).thenReturn(300f);
+
+        Mockito.when(ingredient2.getName()).thenReturn("Ketchup");
+        Mockito.when(ingredient2.getType()).thenReturn(IngredientType.SAUCE);
+        Mockito.when(ingredient2.getPrice()).thenReturn(200f);
 
         Burger burger = new Burger();
         burger.setBuns(bun);
-        burger.addIngredient(filling);
-        burger.addIngredient(sauce);
+        burger.addIngredient(ingredient1);
+        burger.addIngredient(ingredient2);
 
         String expected =
                 "(==== White ====)\n" +
