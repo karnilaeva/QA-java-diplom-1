@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -23,7 +22,7 @@ public class BurgerPriceTest {
         this.expectedPrice = expectedPrice;
     }
 
-    @Parameters
+    @Parameters(name = "bun price: {0}, ingredient prices: {1}, expected total price: {2}")
     public static Object[][] getParameters() {
         return new Object[][]{
                 {100f, List.of(), 200f},
